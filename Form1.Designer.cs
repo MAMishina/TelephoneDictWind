@@ -195,7 +195,7 @@ namespace TelephoneDictWind
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(811, 509);
+            this.ClientSize = new System.Drawing.Size(843, 509);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.panel1);

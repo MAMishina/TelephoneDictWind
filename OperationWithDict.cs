@@ -7,33 +7,42 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Xml.Linq;
 using Newtonsoft.Json;
-
+using System.Windows.Forms;
 
 namespace TelephoneDictWind
 {
     class OperationWithDict
     {
         #region поля
-
+        /// <summary>
+        /// Приватный словарь, хранит телефонный справочник.
+        /// </summary>
         private Dictionary<string, string> telephoneDirectory = new Dictionary<string, string>();
         #endregion
 
         #region Свойства
 
+        /// <summary>
+        /// Публичное свойство для доступа на чтение и запись к телефонному справочнику.
+        /// </summary>
         public Dictionary<string, string> TelephoneDirectory { get { return telephoneDirectory; } set { telephoneDirectory =  value; } }
         #endregion
 
         #region Методы
 
         /// <summary>
-        /// Метод для заполнения справочника телефоном и ФИО
+        /// Метод для дополнения справочника парой телефон - ФИО
+        /// 
+        /// Данный метод в оконном приложении не используется
+        /// 
         /// </summary>
         private void InputData()
         {
             var flag = true;
             while (flag)
             {
-                Console.WriteLine("Введите номер телефона человека и его ФИО через запятую. Для прекращения ввода нажмите enter\nПример ввода +70001112233, Иванов Иван Иванович");
+                Console.WriteLine("Введите номер телефона человека и его ФИО через запятую. " +
+                    "Для прекращения ввода нажмите enter\nПример ввода +70001112233, Иванов Иван Иванович");
                 var inputString = Console.ReadLine();
 
                 if (String.IsNullOrWhiteSpace(inputString))
@@ -53,13 +62,15 @@ namespace TelephoneDictWind
                         var value = arg[1];
                        // if (!telephoneDirectory.TryAdd(key, value))
                         {
-                            Console.WriteLine("Введенный номер уже присутствует в базе данных и не будет добавлен повторно.");
+                            Console.WriteLine("Введенный номер уже присутствует в базе " +
+                                "данных и не будет добавлен повторно.");
                         }
 
                     }
                     else
                     {
-                        Console.WriteLine("Данная пара телефон - ФИО записана не будет. Номер телефона не может содержать буквы и спецсимволы.");
+                        Console.WriteLine("Данная пара телефон - ФИО записана не будет. " +
+                            "Номер телефона не может содержать буквы и спецсимволы.");
                     }
 
                 }
@@ -71,8 +82,12 @@ namespace TelephoneDictWind
         /// Метод для форматирования номера телефона
         /// </summary>
         /// <param name="phone">номер телефона в строковом формате</param>
-        /// <param name="convertOk">индикатор корректности номера - если номер содержит запрещенные символы он не будет отредактирован
+        /// <param name="convertOk">индикатор корректности номера - если номер содержит 
+        /// запрещенные символы он не будет отредактирован
         /// и будет возвращено значение false
+        ///  
+        /// Данный метод в оконном приложении не используется
+        /// 
         /// </param>
         private void FormatPhone(ref string phone, ref bool convertOk)
         {
@@ -84,17 +99,21 @@ namespace TelephoneDictWind
                 {
                     if ((phone[0] == '7') || (phone[0] == '8'))
                     {
-                        phone = "+7-" + phone[1] + phone[2] + phone[3] + "-" + phone[4] + phone[5] + phone[6] + "-" + phone[7] + phone[8] + "-" + phone[9] + phone[10];
+                        phone = "+7-" + phone[1] + phone[2] + phone[3] + "-" + phone[4] 
+                            + phone[5] + phone[6] + "-" + phone[7] + phone[8] + "-" + phone[9] + phone[10];
                     }
                     else
                     {
                         if ((phone[0] == '+') && (phone[1] == '7'))
                         {
-                            phone = "+7-" + phone[2] + phone[3] + phone[4] + "-" + phone[5] + phone[6] + phone[7] + "-" + phone[8] + phone[9] + "-" + phone[10] + phone[11];
+                            phone = "+7-" + phone[2] + phone[3] + phone[4] + "-" 
+                                + phone[5] + phone[6] + phone[7] + "-" + phone[8] + phone[9] + 
+                                "-" + phone[10] + phone[11];
                         }
                         else
                         {
-                            phone = "+7-" + phone[0] + phone[1] + phone[2] + "-" + phone[3] + phone[4] + phone[5] + "-" + phone[6] + phone[7] + "-" + phone[8] + phone[9];
+                            phone = "+7-" + phone[0] + phone[1] + phone[2] + "-" + phone[3] + 
+                                phone[4] + phone[5] + "-" + phone[6] + phone[7] + "-" + phone[8] + phone[9];
                         }
                     }
                 }
@@ -107,7 +126,10 @@ namespace TelephoneDictWind
         }
 
         /// <summary>
-        /// Вывод на экран всего справочника.
+        /// Вывод на консоль всего справочника.
+        ///  
+        /// Данный метод в оконном приложении не используется
+        /// 
         /// </summary>
         private void PrintDictionary()
         {
@@ -118,13 +140,10 @@ namespace TelephoneDictWind
             Console.WriteLine();
         }
 
-
-
         /// <summary>
-        /// метод сохраняет словарик в тхт файл
+        /// Метод сохраняет словарик в файл
         /// </summary>
         /// <param name="dict"></param>
-
         public void Save(Dictionary<string, string> dict, string path, bool append)
         {
             try
@@ -140,23 +159,13 @@ namespace TelephoneDictWind
             }
             catch (Exception exeption)
             {
-                Console.WriteLine(exeption.Message);
+                MessageBox.Show(exeption.Message, "Error !!!", MessageBoxButtons.OK);
             }
-            //var str = JsonConvert.SerializeObject(dict);
-            //File.WriteAllText("phoneFromWin.txt", str);
-
-
-            //var F = JsonConvert.SerializeObject(dict);
-            //File.WriteAllText("phoneFromWin.json", F);
-
-
-
+            
         }
 
-
-
         /// <summary>
-        /// Метод читает файл и выводит на экран всё что есть в файле уже. Видит как массив но вообще должен как дикшинари
+        /// Метод читает файл и отправляет в словарь всё что есть в файле уже. 
         /// </summary>
         public void Read(string path)
         {
@@ -164,30 +173,15 @@ namespace TelephoneDictWind
             telephoneDirectory = File.ReadAllLines(path, Encoding.UTF8)
                 .Select(line => line.Split(new[] { ',' }))
                 .ToDictionary(arr => arr[0], arr => arr[1]);
-
-            //PrintDictionary();
-
-            //var d = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText("phone.txt"));
-
-            //foreach (KeyValuePair<string, string> e in d)
-            //{
-            //    Console.WriteLine($"{e.Key,13}, {e.Value}");
-            //}
-            //Console.WriteLine();
-
-
-            //var dic = JsonConvert.DeserializeObject<Dictionary<string, string>>(File.ReadAllText("phone.json"));
-
-            //foreach (KeyValuePair<string, string> e in dic)
-            //{
-            //    Console.WriteLine($"{e.Key,13}, {e.Value}");
-            //}
-            //Console.WriteLine();
-
         }
 
         /// <summary>
-        /// Метод выводит на консоль пользователю всё, что было записано в файле ранее. Считывает данные из файла и выводит на экран.Воспринимает как словарь
+        /// Метод выводит на консоль пользователю всё, что было записано в файле ранее. 
+        /// Считывает данные из файла и выводит на экран.
+        /// Воспринимает как словарь
+        /// 
+        /// В оконном приложении данный метод не используется
+        /// 
         /// </summary>
         public void FileOutput()
         {
@@ -208,6 +202,9 @@ namespace TelephoneDictWind
 
         /// <summary>
         /// Вызывается в main для того, чтобы показать что мы записали в файл, старое (записанное в файле) не сохраняется
+        /// 
+        /// Данный метод в оконном приложении не используется
+        /// 
         /// </summary>
         public void Demonstration()
         {

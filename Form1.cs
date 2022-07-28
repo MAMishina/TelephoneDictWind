@@ -8,34 +8,64 @@ namespace TelephoneDictWind
 {
     public partial class Form1 : Form
     {
+        #region Поля
         Dictionary<string, string> dict;
         OperationWithDict myTelDic = new OperationWithDict();
         string path = "";
-        private void Form1_Load(object sender, EventArgs e)
-        {
+        #endregion
 
-        }
+        #region Конструктор
 
         public Form1()
         {
             InitializeComponent();
-            
+
         }
 
+        #endregion
+
+        #region Методы
+
+        /// <summary>
+        /// Загрузка формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            MessageBox.Show("Вы запустили телефонный справочник", "Message", MessageBoxButtons.OK);
+        }
+
+        /// <summary>
+        /// Закрытие формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (MessageBox.Show("Закрыть?", "Message", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
+            if (MessageBox.Show("Закрыть приложение?", "Message", MessageBoxButtons.YesNo) == System.Windows.Forms.DialogResult.No)
                 e.Cancel = true;
             else
                 e.Cancel = false;
         }
 
+        /// <summary>
+        /// Кнопка "Вывести ФИО владельца"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button4_Click(object sender, EventArgs e)
         {
             textBox3.Enabled = true;
             textBox3.Text = dict[listBox1.SelectedValue.ToString()];
         }
 
+
+        /// <summary>
+        /// Кнопка "Записать в файл"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
 
@@ -62,6 +92,12 @@ namespace TelephoneDictWind
 
         }
 
+
+        /// <summary>
+        /// Кнопка "Подтвердить адрес"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             path = textBox1.Text;
@@ -93,6 +129,12 @@ namespace TelephoneDictWind
 
         }
 
+
+        /// <summary>
+        /// Кнопка "Добавить в файл"
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             string valueDict = textBox2.Text;
@@ -119,5 +161,6 @@ namespace TelephoneDictWind
             }
         }
 
+        #endregion
     }
 }
