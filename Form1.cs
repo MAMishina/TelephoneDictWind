@@ -12,6 +12,7 @@ namespace TelephoneDictWind
         Dictionary<string, string> dict;
         OperationWithDict myTelDic = new OperationWithDict();
         string path = "";
+        int counts;
         #endregion
 
         #region Конструктор
@@ -19,7 +20,7 @@ namespace TelephoneDictWind
         public Form1()
         {
             InitializeComponent();
-
+            counts = 0;
         }
 
         #endregion
@@ -162,5 +163,15 @@ namespace TelephoneDictWind
         }
 
         #endregion
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (counts < 1)
+            {
+                Form2 newfrm = new Form2();
+                newfrm.Show();
+                counts++;
+            }
+        }
     }
 }

@@ -46,6 +46,7 @@ namespace TelephoneDictWind
             this.button4 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button5 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -185,6 +186,7 @@ namespace TelephoneDictWind
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.button5);
             this.panel2.Controls.Add(this.listBox1);
             this.panel2.Controls.Add(this.button4);
             this.panel2.Controls.Add(this.textBox3);
@@ -192,6 +194,16 @@ namespace TelephoneDictWind
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(478, 215);
             this.panel2.TabIndex = 12;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(335, 103);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(129, 24);
+            this.button5.TabIndex = 11;
+            this.button5.Text = "button5";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // Form1
             // 
@@ -229,6 +241,7 @@ namespace TelephoneDictWind
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button button5;
     }
 
     
